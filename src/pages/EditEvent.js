@@ -16,7 +16,8 @@ function EditEvent() {
   return (
     <div>
       <h1>Edit Event</h1>
-      <form onSubmit={handleSubmit}>
+
+      
         <div>
           <label htmlFor="title">Title:</label>
           <input
@@ -50,7 +51,7 @@ function EditEvent() {
           />
         </div>
         <button type="submit">Save Changes</button>
-      </form>
+      
     </div>
   );
 }

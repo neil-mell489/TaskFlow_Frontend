@@ -1,12 +1,9 @@
 import React from 'react';
-import HomePage from './pages/HomePage';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 
 function App() {
-  return (
-    <div>
-      <HomePage />
-    </div>
-  );
+  return 
 }
 
 export default App;
