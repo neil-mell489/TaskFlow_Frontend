@@ -1,9 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
 
+import HomePage from './pages/HomePage';
 
 function App() {
-  return 
+  return (
+    <BrowserRouter>
+      <HomePage />
+    </BrowserRouter>
+  );
 }
 
 export default App;
