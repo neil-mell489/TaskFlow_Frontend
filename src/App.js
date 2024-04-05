@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, } from 'react-router-dom';
 import HomePage from './pages/HomePage'; 
 import SignupForm from './components/AuthPage/SignUpForm';  
 import LoginForm from './components/AuthPage/LoginForm';
@@ -38,6 +38,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login handleLogin={handleLogin} setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/homepage" element={<HomePage />} />
         <Route path="/signup" element={<SignupForm handleSignUp={handleSignUp} />} />
         <Route path="/profile" element={<Profile user={user} />} />
         <Route path="/edit-event/:id" element={<EditEvent />} />

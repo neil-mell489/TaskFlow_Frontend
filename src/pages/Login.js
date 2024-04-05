@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function LoginPage() {
   return (
     <div>
-      <h1>TaskFlow</h1>
+      <h1>TaskFlow Login/SignUp Page</h1>
       <h2>Sign Up</h2>
       <form>
         <div>
@@ -28,6 +29,7 @@ function LoginPage() {
         </div>
         <button type="submit">Log In</button>
       </form>
+      <Link to="/homepage">AUTOMATIC LOGIN PATH (DEV ONLY)</Link>
     </div>
   );
 }
