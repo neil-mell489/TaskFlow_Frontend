@@ -34,6 +34,9 @@ function HomePage() {
         <Link to="/new-event">AUTOMATIC NEW EVENT PATH (DEV)</Link>
         </div>
         <div>
+        <Link to="/edit-event/:id">AUTOMATIC EDIT EVENT PATH (DEV)</Link>
+        </div>
+        <div>
         <Link to="/">AUTOMATIC LOGOUT PATH (DEV)</Link>
         </div>
       </div>

@@ -13,6 +13,10 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
+  // HERE IS FRONT AND BACK CONNECTION STUFF
+  // const URL = process.env.URL (this is going to be the backend link?)
+  // const URL = "http/localhost:3000/"
+
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
