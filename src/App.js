@@ -1,43 +1,68 @@
+// App.js
+
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, } from 'react-router-dom';
-import HomePage from './pages/HomePage'; 
-import SignupForm from './components/AuthPage/SignUpForm';  
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import SignupForm from './components/AuthPage/SignUpForm';
 import LoginForm from './components/AuthPage/LoginForm';
 import Login from './pages/Login';
-import Profile from './pages/Profile';  
-import EditEvent from './pages/EditEvent'; 
-import NewEvent from './pages/NewEvent'; 
-import ViewEvent from './pages/ViewEvent'; 
+import Profile from './pages/Profile';
+import EditEvent from './pages/EditEvent';
+import NewEvent from './pages/NewEvent';
+import ViewEvent from './pages/ViewEvent';
+import { signUpUser, loginUser } from './components/api'; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
-  // HERE IS FRONT AND BACK CONNECTION STUFF
-  // const URL = process.env.URL (this is going to be the backend link?)
-  // const URL = "http/localhost:3000/"
-
-  // You need to do something with URL to connect the two.
-
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
       setIsLoggedIn(true);
-      // USER DATA IS FETCHED HERE
+      fetchUserData(token);
     }
   }, []);
 
-  const handleSignUp = async (user) => {
-    // SIGN UP LOGIC GOES HERE
+  const fetchUserData = async (token) => {
+    try {
+      // Make API call to fetch user data using token
+      // Example:
+      // const userData = await getUserData(token);
+      // setUser(userData);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
   };
 
-  const handleLogin = async (user) => {
-    // LOGIN LOGIC GOES HERE
+  const handleSignUp = async (userData) => {
+    try {
+      const data = await signUpUser(userData);
+      localStorage.setItem('authToken', data.token);
+      setIsLoggedIn(true);
+      // Fetch user data or perform other necessary operations
+    } catch (error) {
+      console.error('Error signing up:', error);
+      // Handle signup failure
+    }
+  };
+
+  const handleLogin = async (userData) => {
+    try {
+      const data = await loginUser(userData);
+      localStorage.setItem('authToken', data.token);
+      setIsLoggedIn(true);
+      // Fetch user data or perform other necessary operations
+    } catch (error) {
+      console.error('Error logging in:', error);
+      // Handle login failure
+    }
   };
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     setIsLoggedIn(false);
+    setUser(null);
   };
 
   return (
