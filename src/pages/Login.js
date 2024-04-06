@@ -7,6 +7,7 @@ function LoginPage() {
   const [signupPassword, setSignupPassword] = useState('');
   const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  const [signUpSuccess, setSignUpSuccess] = useState(false);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -15,6 +16,7 @@ function LoginPage() {
       const response = await signUpUser(userData);
       console.log('User signed up:', response);
       // Optionally redirect to another page after successful signup
+      setSignUpSuccess(true); // Setting sign-up success state
     } catch (error) {
       console.error('Error signing up:', error);
       // Optionally display an error message to the user
@@ -49,6 +51,8 @@ function LoginPage() {
         </div>
         <button type="submit">Sign Up</button>
       </form>
+      {/* Display sign up success message if sign up was successful */}
+      {signUpSuccess && <p>Sign Up Successful!</p>}
       <h2>Log In</h2>
       <form onSubmit={handleLogin}>
         <div>

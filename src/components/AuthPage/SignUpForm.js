@@ -7,7 +7,7 @@ function SignUpForm() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('API LINK GOES HERE', {
+      const response = await fetch('http://localhost:4000/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
