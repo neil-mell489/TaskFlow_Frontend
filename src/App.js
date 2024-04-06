@@ -17,6 +17,8 @@ function App() {
   // const URL = process.env.URL (this is going to be the backend link?)
   // const URL = "http/localhost:3000/"
 
+  // You need to do something with URL to connect the two.
+
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
