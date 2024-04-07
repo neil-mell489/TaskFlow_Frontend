@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import SignupForm from './components/AuthPage/SignUpForm';
-import LoginForm from './components/AuthPage/LoginForm';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import EditEvent from './pages/EditEvent';
