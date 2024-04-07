@@ -9,7 +9,8 @@ import Profile from './pages/Profile';
 import EditEvent from './pages/EditEvent';
 import NewEvent from './pages/NewEvent';
 import ViewEvent from './pages/ViewEvent';
-import { signUpUser, loginUser } from './components/api'; 
+import { signUpUser, loginUser } from './components/api';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
