@@ -18,20 +18,26 @@ const Login = (props) => {
     }
     return (
         <div className="form-container">
-            <h1>Welcome Back!</h1>
+            <h1>Welcome Back! (to TaskFlow)</h1>
             <form onSubmit={handleSubmit}>
-                <span>
-                    <label htmlFor="username">Username: </label>
-                    <input type="text" name="username" onChange={handleChange}/>
-                </span>
-                <span>                
-                    <label htmlFor="email">Email: </label>
-                    <input type="email" name="email" onChange={handleChange}/>
+                <div>
+                    <span>
+                        <label htmlFor="username">Username: </label>
+                        <input type="text" name="username" onChange={handleChange}/>
                     </span>
-                <span>                
-                    <label htmlFor="password">Password: </label>
-                    <input type="password" name="password" onChange={handleChange}/>
-                </span>
+                </div>
+                <div>
+                    <span>                
+                        <label htmlFor="email">Email: </label>
+                        <input type="email" name="email" onChange={handleChange}/>
+                    </span>
+                </div>
+                <div>
+                    <span>                
+                        <label htmlFor="password">Password: </label>
+                        <input type="password" name="password" onChange={handleChange}/>
+                    </span>
+                </div>
                 <input type="submit" value="Login"/>
             </form>
             {/* inside the form div display the error message in red */}

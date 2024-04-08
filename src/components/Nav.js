@@ -12,8 +12,12 @@ const Nav = (props) => {
     // user is NOT logged in - show them signup/login nav links
     const noAuthLinks = (
         <div>
+            <div>
             <Link to="/signup">Signup</Link>
+            </div>
+            <div>
             <Link to="/login">Login</Link>
+            </div>
         </div>
     )
 
