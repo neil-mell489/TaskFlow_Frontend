@@ -1,21 +1,22 @@
-import { useState } from "react"
+import { useState } from "react";
 
 const Login = (props) => {
-    const [form, setForm] = useState(null)
-    const [errorMsg, setErrorMsg] = useState("")
+    const [form, setForm] = useState(null);
+    const [errorMsg, setErrorMsg] = useState("");
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         // log the user in on submit
-        let submission = await props.handleLogin(form)
-        if(submission){
-            setErrorMsg(submission.error)
+        let submission = await props.handleLogin(form);
+        if (submission) {
+            setErrorMsg(submission.error);
         }
-    }
+    };
 
     const handleChange = (e) => {
-        setForm({...form, [e.target.name]: e.target.value})
-    }
+        setForm({...form, [e.target.name]: e.target.value});
+    };
+
     return (
         <div className="form-container">
             <h1>Welcome Back! (to TaskFlow)</h1>
@@ -38,12 +39,12 @@ const Login = (props) => {
                         <input type="password" name="password" onChange={handleChange}/>
                     </span>
                 </div>
-                <input type="submit" value="Login"/>
+                <button type="submit">Login</button>
             </form>
             {/* inside the form div display the error message in red */}
             {errorMsg ? <h4 style={{color: "red"}}>{errorMsg}</h4> : ""}
         </div>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;
