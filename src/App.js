@@ -1,81 +1,96 @@
-// App.js
-
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import SignupForm from './components/AuthPage/SignUpForm';
-import Login from './pages/Login';
+import {Routes, Route, useNavigate} from 'react-router-dom'
 import Profile from './pages/Profile';
-import EditEvent from './pages/EditEvent';
-import NewEvent from './pages/NewEvent';
-import ViewEvent from './pages/ViewEvent';
-import { signUpUser, loginUser } from './components/api'; 
+import Signup from './components/Signup';
+import Login from './components/Login';
+import Nav from './components/Nav';
+import Homepage from './pages/Homepage';
+import { useState, useEffect } from 'react';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user, setUser] = useState(null)
+  const navigate = useNavigate()
+  const URL = "http://localhost:4000/api/"
 
-  useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      setIsLoggedIn(true);
-      fetchUserData(token);
-    }
-  }, []);
+  const handleSignUp = async(user) => {
+    const response = await fetch(URL + "auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user) 
+    })
+    const data = await response.json()
+    console.log(data)
+    navigate("/login")
+  }
 
-  const fetchUserData = async (token) => {
-    try {
-      // Make API call to fetch user data using token
-      // Example:
-      // const userData = await getUserData(token);
-      // setUser(userData);
-    } catch (error) {
-      console.error('Error fetching user data:', error);
+  const handleLogin = async(user) => {
+    const response = await fetch(URL + "auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user)
+    })
+    const data = await response.json()
+    console.log(data)
+    // if status is NOT 200(OK)
+    if(response.status !== 200 || !data.token){
+      return data
     }
-  };
-
-  const handleSignUp = async (userData) => {
-    try {
-      const data = await signUpUser(userData);
-      localStorage.setItem('authToken', data.token);
-      setIsLoggedIn(true);
-      // Fetch user data or perform other necessary operations
-    } catch (error) {
-      console.error('Error signing up:', error);
-      // Handle signup failure
-    }
-  };
-
-  const handleLogin = async (userData) => {
-    try {
-      const data = await loginUser(userData);
-      localStorage.setItem('authToken', data.token);
-      setIsLoggedIn(true);
-      // Fetch user data or perform other necessary operations
-    } catch (error) {
-      console.error('Error logging in:', error);
-      // Handle login failure
-    }
-  };
+    localStorage.setItem("authToken", data.token)
+    setIsLoggedIn(true)
+    navigate(`/profile/${data.id}`)
+  }
 
   const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    setIsLoggedIn(false);
-    setUser(null);
-  };
+    console.log("in handle logout")
+    localStorage.removeItem("authToken")
+    setIsLoggedIn(false)
+    navigate("/")
+  }
+
+  const fetchUser = async (id) => {
+    // get logged in user's token
+    const token = localStorage.getItem("authToken")
+    if(token){
+      const response = await fetch(URL + `user/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": token // bearerHeader variable on the backend
+        }
+      })
+      const data = await response.json()
+      console.log(data)
+      setUser(data.data)
+    } else {
+      console.log("no token")
+    }
+  }
+
+  useEffect(()=>{
+    // this will help with render UI for Nav when user refreshes the page
+    let token = localStorage.getItem("authToken")
+    // token doesnt exist in local storage? 
+    if(!token){
+      setIsLoggedIn(false) // they are logged out
+    } else {
+      setIsLoggedIn(true) // they are logged in 
+    }
+  }, [])
 
   return (
-    <BrowserRouter>
+    <div className="App">
+      <Nav isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
       <Routes>
-        <Route path="/" element={<Login handleLogin={handleLogin} setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/homepage" element={<HomePage />} />
-        <Route path="/signup" element={<SignupForm handleSignUp={handleSignUp} />} />
-        <Route path="/profile" element={<Profile user={user} />} />
-        <Route path="/edit-event/:id" element={<EditEvent />} />
-        <Route path="/new-event" element={<NewEvent />} />
-        <Route path="/view-event/:id" element={<ViewEvent />} />
+        <Route path='/' element={<Homepage />}/>
+        <Route path='/signup' element={<Signup handleSignUp={handleSignUp}/>}/>
+        <Route path='/login' element={<Login handleLogin={handleLogin}/>}/>
+        <Route path='/profile/:id' element={<Profile fetchUser={fetchUser} user={user}/>}/>
       </Routes>
-    </BrowserRouter>
+    </div>
   );
 }
 
