@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Nav from './components/Nav';
 import Homepage from './pages/HomePage';
 import { useState, useEffect } from 'react';
+import "../src/css/tailwind.css"
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

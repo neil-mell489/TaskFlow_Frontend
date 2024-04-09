@@ -13,8 +13,9 @@ const Signup = (props) => {
     }
 
     return(
-        <div className="form-container">
-            <h1>Register Your Account</h1>
+        
+        <div className="form-container p-10 flex justify-center">
+            <h1 className="pr-5">Register Your Account: </h1>
             <form onSubmit={handleSubmit}>
                 <span>
                     <label htmlFor="username">Username: </label>
@@ -24,11 +25,11 @@ const Signup = (props) => {
                     <label htmlFor="email">Email: </label>
                     <input type="email" name="email" onChange={handleChange}/>
                     </span>
-                <span>                
+                <span className="pr-3">                
                     <label htmlFor="password">Password: </label>
                     <input type="password" name="password" autoComplete="true" onChange={handleChange}/>
                 </span>
-                <input type="submit" value="Sign Up"/>
+                    <input type="submit" value="Sign Up" className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md"/>
             </form>
         </div>
 
