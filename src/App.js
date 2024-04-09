@@ -3,12 +3,13 @@ import Profile from './pages/Profile';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Nav from './components/Nav';
-import Homepage from './pages/HomePage';
+import Homepage from './pages/Homepage';
 import { useState, useEffect } from 'react';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [fetchingUser, setFetchingUser] = useState(false); // Add state for fetching user
   const navigate = useNavigate(); // Get the navigate function directly
 
   const URL = "http://localhost:4000/api/";
@@ -53,6 +54,12 @@ function App() {
   };
 
   const fetchUser = async (id) => {
+    // Prevent fetching user data if already fetching
+    if (fetchingUser) return;
+
+    // Set fetchingUser to true to prevent multiple requests
+    setFetchingUser(true);
+
     // get logged in user's token
     const token = localStorage.getItem("authToken");
     if(token){
@@ -64,10 +71,11 @@ function App() {
         }
       });
       const data = await response.json();
-      console.log(data);
       setUser(data.data);
+      setFetchingUser(false); // Reset fetchingUser after successful fetch
     } else {
       console.log("no token");
+      setFetchingUser(false); // Reset fetchingUser if no token
     }
   };
 
