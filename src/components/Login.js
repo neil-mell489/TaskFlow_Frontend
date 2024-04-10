@@ -18,28 +18,37 @@ const Login = (props) => {
     };
 
     return (
-        <div className="form-container">
-            <h1>Welcome Back! (to TaskFlow)</h1>
+        <div className="form-container flex flex-col justify-center content-center items-center m-10">
+            <h1 className="p-5">Welcome Back! (to TaskFlow)</h1>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className="p-2">
                     <span>
                         <label htmlFor="username">Username: </label>
-                        <input type="text" name="username" onChange={handleChange}/>
+                        <div>
+                        <input type="text" name="username" onChange={handleChange} placeholder="Enter Username"/>                            
+                        </div>
                     </span>
                 </div>
-                <div>
+                <div className="p-2">
                     <span>                
                         <label htmlFor="email">Email: </label>
-                        <input type="email" name="email" onChange={handleChange}/>
+                        <div>
+                        <input type="email" name="email" onChange={handleChange} placeholder="Enter Email"/>                            
+                        </div>
                     </span>
                 </div>
-                <div>
+                <div className="p-2">
                     <span>                
                         <label htmlFor="password">Password: </label>
-                        <input type="password" name="password" onChange={handleChange}/>
+                        <div>
+                        <input type="password" name="password" onChange={handleChange} placeholder="Enter Password"/>                            
+                        </div>
                     </span>
                 </div>
-                <button type="submit">Login</button>
+                <div className="flex justify-center">
+                <button type="submit" className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">Login</button>                    
+                </div>
+
             </form>
             {/* inside the form div display the error message in red */}
             {errorMsg ? <h4 style={{color: "red"}}>{errorMsg}</h4> : ""}

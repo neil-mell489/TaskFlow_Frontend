@@ -20,8 +20,8 @@ const Signup = (props) => {
                 <div className="p-2">
                 <span>
                     <label htmlFor="username">Username: </label>
-                    <div className="shadow-sm">
-                        <input className="shadow-sm" type="text" name="username" onChange={handleChange} placeholder="Enter Username"/>                        
+                    <div>
+                        <input  type="text" name="username" onChange={handleChange} placeholder="Enter Username"/>                        
                     </div>
           
                 </span>                    
