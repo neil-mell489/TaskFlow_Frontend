@@ -14,22 +14,40 @@ const Signup = (props) => {
 
     return(
         
-        <div className="form-container p-10 flex justify-center">
-            <h1 className="pr-5">Register Your Account: </h1>
+        <div className="form-container flex flex-col justify-center content-center items-center m-10">
+            <h1 className="p-5">Register Your Account: </h1>
             <form onSubmit={handleSubmit}>
+                <div className="p-2">
                 <span>
                     <label htmlFor="username">Username: </label>
-                    <input type="text" name="username" onChange={handleChange}/>
-                </span>
+                    <div className="shadow-sm">
+                        <input className="shadow-sm" type="text" name="username" onChange={handleChange} placeholder="Enter Username"/>                        
+                    </div>
+          
+                </span>                    
+                </div>
+                <div className="p-2">
                 <span>                
                     <label htmlFor="email">Email: </label>
-                    <input type="email" name="email" onChange={handleChange}/>
-                    </span>
-                <span className="pr-3">                
+                    <div>
+                    <input type="email" name="email" onChange={handleChange} placeholder="Enter Email"/>                        
+                    </div>
+
+                </span>                    
+                </div>
+                <div className="p-2">
+                <span>                
                     <label htmlFor="password">Password: </label>
-                    <input type="password" name="password" autoComplete="true" onChange={handleChange}/>
+                    <div>
+                    <input type="password" name="password" autoComplete="true" onChange={handleChange} placeholder="Enter Password"/>                        
+                    </div>
+
                 </span>
-                    <input type="submit" value="Sign Up" className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md"/>
+                </div>
+                    <div className="flex justify-center">
+                    <input type="submit" value="Sign Up" className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3"/>                        
+                    </div>
+
             </form>
         </div>
 
