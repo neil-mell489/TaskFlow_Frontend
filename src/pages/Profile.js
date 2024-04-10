@@ -34,32 +34,32 @@ const Profile = ({ user, fetchUser }) => {
                 <h1>Welcome, {user.username}</h1>
                 <h3>Calendar Display:</h3>
                 <Calendar
-                    onChange={setDate}
-                    value={date}
-                    tileContent={({ date, view }) => {
-                        if (view === 'month') {
-                            // Get tasks for the current date
-                            const tasksForDate = tasks.filter(task => {
-                                const taskDate = new Date(task.date);
-                                return taskDate.getDate() === date.getDate() &&
-                                       taskDate.getMonth() === date.getMonth() &&
-                                       taskDate.getFullYear() === date.getFullYear();
-                            });
-                            
-                            // Render tasks for the current date
-                            return (
-                                <div>
-                                    {tasksForDate.map(task => (
-                                        <div key={task.id}>
-                                            <p>{task.title} ({task.time})</p>
-                                            <button onClick={() => handleEditTask(task)}>Edit</button>
-                                        </div>
-                                    ))}
-                                </div>
-                            );
-                        }
-                    }}
-                />
+    onChange={setDate}
+    value={date}
+    tileContent={({ date, view }) => {
+        if (view === 'month') {
+            // Get tasks for the current date
+            const tasksForDate = tasks.filter(task => {
+                const taskDate = new Date(task.date);
+                return taskDate.getDate() === date.getDate() &&
+                    taskDate.getMonth() === date.getMonth() &&
+                    taskDate.getFullYear() === date.getFullYear();
+            });
+
+            // Render tasks for the current date
+            return (
+                <div>
+                    {tasksForDate.map(task => (
+                        <div key={task.id}>
+                            <p>{task.title} ({task.time})</p>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+    }}
+/>
+
                 <button onClick={() => setIsTaskBoxOpen(true)}>Add Task</button>
                 <TaskBox isOpen={isTaskBoxOpen} onClose={() => setIsTaskBoxOpen(false)} onSubmit={handleAddTask} task={selectedTask} />
             </div>
