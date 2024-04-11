@@ -90,6 +90,8 @@ function App() {
     }
   }, []);
 
+  
+
   return (
     <div className="App">
       <Nav isLoggedIn={isLoggedIn} handleLogout={handleLogout} handleNavigation={navigate} /> {/* Pass handleNavigation here */}
