@@ -12,7 +12,7 @@ function App() {
   const [fetchingUser, setFetchingUser] = useState(false); // Add state for fetching user
   const navigate = useNavigate(); // Get the navigate function directly
 
-  const URL = "http://localhost:4000/api/";
+  const URL = "http://localhost:4000/api/events";
 
   const handleSignUp = async(user) => {
     const response = await fetch(URL + "auth/signup", {
@@ -28,7 +28,7 @@ function App() {
   };
 
   const handleLogin = async(user) => {
-    const response = await fetch(URL + "auth/login", {
+    const response = await fetch("http://localhost:4000/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,7 +63,7 @@ function App() {
     // get logged in user's token
     const token = localStorage.getItem("authToken");
     if(token){
-      const response = await fetch(URL + `user/${id}`, {
+      const response = await fetch(`http://localhost:4000/api/user/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
