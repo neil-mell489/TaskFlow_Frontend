@@ -1,10 +1,10 @@
 const Homepage = () => {
 
-  return (
-      <div className="homepage-heading">
-          <h1>Welcome to taskflow!</h1>
-      </div>
-  )
+    return (
+        <div className="homepage-heading">
+            <h1>Calender</h1>
+        </div>
+    )
 }
 
 export default Homepage
