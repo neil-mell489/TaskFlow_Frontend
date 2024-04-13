@@ -12,10 +12,9 @@ function App() {
   const [fetchingUser, setFetchingUser] = useState(false); // Add state for fetching user
   const navigate = useNavigate(); // Get the navigate function directly
 
-  const URL = "http://localhost:4000/api/events";
 
   const handleSignUp = async(user) => {
-    const response = await fetch(URL + "auth/signup", {
+    const response = await fetch("http://localhost:4000/api/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

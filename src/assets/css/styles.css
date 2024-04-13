@@ -32,3 +32,9 @@
     text-overflow: ellipsis; /* Adds '...' for truncated text */
   }
   
+  /* Ensure the Edit and Delete buttons are always visible */
+  .react-calendar__tile button {
+    display: inline-block;
+    margin-top: 5px; /* Adjust spacing as needed */
+  }
+  

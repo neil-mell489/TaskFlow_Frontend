@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const EventForm = ({ setShowEventForm }) => {
+const EventForm = ({ setShowEventForm, event, onSubmit }) => {
   const [formData, setFormData] = useState({
-    eventName: '',
-    description: '',
-    date: '',
-    time: '',
+    eventName: event ? event.eventName : '',
+    description: event ? event.description : '',
+    date: event ? event.date : '',
+    time: event ? event.time : '',
   });
+
+  useEffect(() => {
+    // Update form data when the event prop changes
+    if (event) {
+      setFormData({
+        eventName: event.eventName,
+        description: event.description,
+        date: event.date,
+        time: event.time,
+      });
+    }
+  }, [event]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,28 +27,35 @@ const EventForm = ({ setShowEventForm }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:4000/api/events', {
-        method: 'POST',
+      const response = await fetch(event ? `http://localhost:4000/api/events/${event._id}` : 'http://localhost:4000/api/events', {
+        method: event ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
       if (!response.ok) {
-        throw new Error('Failed to create event: ' + response.statusText);
+        throw new Error(`Failed to ${event ? 'edit' : 'create'} event: ${response.statusText}`);
       }
       // If successful, close the form
       setShowEventForm(false);
-      console.log("Event submitted!");
+      console.log(`${event ? 'Event edited' : 'Event created'} successfully!`);
+      // Call the onSubmit function passed from the parent component to handle updates in the parent component
+      onSubmit();
     } catch (error) {
-      console.error('Failed to create event:', error.message);
+      console.error(`Failed to ${event ? 'edit' : 'create'} event:`, error.message);
     }
   };
-  
+
+  // Function to open the pop-up window
+  const handleViewEvent = () => {
+    // Implement the logic to display the event details in a pop-up window
+    // You can use a modal or a custom pop-up component for this purpose
+  };
 
   return (
     <div>
-      <h2>Create Event</h2>
+      <h2>{event ? 'Edit Event' : 'Create Event'}</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Title:</label>
@@ -54,8 +73,10 @@ const EventForm = ({ setShowEventForm }) => {
           <label>Time:</label>
           <input type="time" name="time" value={formData.time} onChange={handleChange} />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">{event ? 'Edit' : 'Create'} Event</button>
       </form>
+      {/* View button */}
+      <button className="view-button" onClick={handleViewEvent}>View Event</button>
     </div>
   );
 };
