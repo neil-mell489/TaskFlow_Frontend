@@ -10,13 +10,14 @@ const Profile = ({ loggedIn, user }) => {
   const [date, setDate] = useState(new Date());
   const [editingEvent, setEditingEvent] = useState(null);
   const {id} = useParams()
+  const URL = process.env.REACT_APP_URL
   useEffect(() => {
     fetchEvents(); // Fetch events when component mounts
   }, []);
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/events/${id}`, {
+      const response = await fetch(URL + `api/events/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +54,7 @@ const Profile = ({ loggedIn, user }) => {
 
   const handleDeleteEvent = async (id) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/events/${id}`, {
+      const response = await fetch(URL + `api/events/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
