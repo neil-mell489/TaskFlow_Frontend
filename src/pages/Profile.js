@@ -2,20 +2,21 @@ import React, { useState, useEffect } from 'react';
 import EventForm from '../components/EventForm';
 import Calendar from 'react-calendar';
 import '../assets/css/styles.css';
+import {useParams} from 'react-router-dom'
 
-const Profile = ({ loggedIn }) => {
+const Profile = ({ loggedIn, user }) => {
   const [showEventForm, setShowEventForm] = useState(false);
   const [events, setEvents] = useState([]);
   const [date, setDate] = useState(new Date());
   const [editingEvent, setEditingEvent] = useState(null);
-
+  const {id} = useParams()
   useEffect(() => {
     fetchEvents(); // Fetch events when component mounts
   }, []);
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/events', {
+      const response = await fetch(`http://localhost:4000/api/events/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ const Profile = ({ loggedIn }) => {
     <div>
       <h1>Profile Page</h1>
       <button onClick={handleCreateEvent}>Create Event</button>
-      {showEventForm && <EventForm setShowEventForm={setShowEventForm} onSubmit={handleEventFormSubmit} event={editingEvent} />}
+      {showEventForm && <EventForm setShowEventForm={setShowEventForm} onSubmit={handleEventFormSubmit} event={editingEvent} user={user} />}
       <Calendar
   onChange={setDate}
   value={date}

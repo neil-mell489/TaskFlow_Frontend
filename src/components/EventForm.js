@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import {useParams} from 'react-router-dom'
 
-const EventForm = ({ setShowEventForm, event, onSubmit }) => {
+
+const EventForm = ({ setShowEventForm, event, onSubmit, user }) => {
   const [formData, setFormData] = useState({
     eventName: event ? event.eventName : '',
     description: event ? event.description : '',
     date: event ? event.date : '',
     time: event ? event.time : '',
   });
+  const {id} = useParams()
 
   useEffect(() => {
     // Update form data when the event prop changes
@@ -32,7 +35,7 @@ const EventForm = ({ setShowEventForm, event, onSubmit }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({...formData, createdBy: id}),
       });
       if (!response.ok) {
         throw new Error(`Failed to ${event ? 'edit' : 'create'} event: ${response.statusText}`);
