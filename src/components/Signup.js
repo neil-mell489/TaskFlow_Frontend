@@ -13,22 +13,31 @@ const Signup = (props) => {
     }
 
     return(
-        <div className="form-container">
-            <h1>Register Your Account</h1>
+        <div className="form-container flex flex-col m-10 items-center">
+            <h1 className="pb-10 text-2xl">Register Your Account</h1>
             <form onSubmit={handleSubmit}>
+                <div className="pb-2">
                 <span>
                     <label htmlFor="username">Username: </label>
-                    <input type="text" name="username" onChange={handleChange}/>
-                </span>
+                    <input type="text" name="username" onChange={handleChange} placeholder="Enter Username"/>
+                </span>                    
+                </div>
+                <div className="pb-2">
                 <span>                
                     <label htmlFor="email">Email: </label>
-                    <input type="email" name="email" onChange={handleChange}/>
-                    </span>
-                <span>                
+                    <input type="email" name="email" onChange={handleChange} placeholder="Enter Email"/>
+                    </span>                     
+                </div>
+                <div className="pb-2">
+                <span>
                     <label htmlFor="password">Password: </label>
-                    <input type="password" name="password" autoComplete="true" onChange={handleChange}/>
-                </span>
-                <input type="submit" value="Sign Up"/>
+                    <input type="password" name="password" autoComplete="true" onChange={handleChange} placeholder="Enter Password"/>
+                </span>                    
+                </div>
+                <div className="flex justify-center">
+                <input type="submit" className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3" value="Sign Up"/>                    
+                </div>
+
             </form>
         </div>
 

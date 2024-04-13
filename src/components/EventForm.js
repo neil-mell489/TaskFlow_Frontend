@@ -54,29 +54,32 @@ const EventForm = ({ setShowEventForm, event, onSubmit }) => {
   };
 
   return (
-    <div>
-      <h2>{event ? 'Edit Event' : 'Create Event'}</h2>
+    <div className='bg-violet-300 flex flex-col items-center'>
+      <h2 className='text-xl font-semibold pb-5 pt-5'>{event ? 'Edit Event' : 'Create Event'}</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Title:</label>
-          <input type="text" name="eventName" value={formData.eventName} onChange={handleChange} />
+        <div className='pb-4'>
+          <label>Title: </label>
+          <input type="text" name="eventName" value={formData.eventName} onChange={handleChange} placeholder='Enter Title'/>
         </div>
-        <div>
-          <label>Description:</label>
-          <input type="text" name="description" value={formData.description} onChange={handleChange} />
+        <div className='pb-4'>
+          <label>Description: </label>
+          <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder='Enter Description' />
         </div>
-        <div>
-          <label>Date:</label>
+        <div className='pb-4'>
+          <label>Date </label>
           <input type="date" name="date" value={formData.date} onChange={handleChange} />
         </div>
-        <div>
-          <label>Time:</label>
+        <div className='pb-4'>
+          <label>Time: </label>
           <input type="time" name="time" value={formData.time} onChange={handleChange} />
         </div>
-        <button type="submit">{event ? 'Edit' : 'Create'} Event</button>
+        <div className="flex justify-center">
+        <button type="submit" className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">{event ? 'Edit' : 'Create'} Event</button>          
+        </div>
+
       </form>
       {/* View button */}
-      <button className="view-button" onClick={handleViewEvent}>View Event</button>
+      {/* <button className="view-button" onClick={handleViewEvent}>View Event</button> */}
     </div>
   );
 };
