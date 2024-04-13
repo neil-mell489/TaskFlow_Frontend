@@ -37,4 +37,29 @@
     display: inline-block;
     margin-top: 5px; /* Adjust spacing as needed */
   }
+
+  /* New button style */
+.view-button {
+    display: inline-block;
+    margin-top: 5px; /* Adjust spacing as needed */
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  /* Style for the pop-up window */
+  .event-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 9999; /* Ensure it appears on top of other elements */
+  }
   

@@ -90,28 +90,31 @@ const Profile = ({ loggedIn }) => {
       <button onClick={handleCreateEvent}>Create Event</button>
       {showEventForm && <EventForm setShowEventForm={setShowEventForm} onSubmit={handleEventFormSubmit} event={editingEvent} />}
       <Calendar
-        onChange={setDate}
-        value={date}
-        tileContent={({ date, view }) => {
-          const dayEvents = events?.filter(event => 
-            new Date(event.date).toDateString() === date.toDateString()
-          );
-          return (
-            <ul>
-              {dayEvents.map((event, index) => (
-                <li key={index}>
-                  <div>
-                    <span>{event.eventName}</span>
-                    <button onClick={() => handleEditEvent(event)}>Edit</button>
-                    <button onClick={() => handleDeleteEvent(event._id)}>Delete</button>
-                  </div>
-                  <div>{convertTo12HourTime(event.time)}</div>
-                </li>
-              ))}
-            </ul>
-          );
-        }}
-      />
+  onChange={setDate}
+  value={date}
+  tileContent={({ date, view }) => {
+    const offset = date.getTimezoneOffset() * 60000; // Get offset in milliseconds
+    const dayEvents = events?.filter(event =>
+      new Date(event.date).getTime() + offset >= date.getTime() && // Adjust for timezone offset
+      new Date(event.date).getTime() + offset < date.getTime() + 86400000 // 86400000 milliseconds = 1 day
+    );
+    return (
+      <ul>
+        {dayEvents.map((event, index) => (
+          <li key={index}>
+            <div>
+              <span>{event.eventName}</span>
+              <button onClick={() => handleEditEvent(event)}>Edit</button>
+              <button onClick={() => handleDeleteEvent(event._id)}>Delete</button>
+            </div>
+            <div>{convertTo12HourTime(event.time)}</div>
+          </li>
+        ))}
+      </ul>
+    );
+  }}
+/>
+
     </div>
   );
 };
