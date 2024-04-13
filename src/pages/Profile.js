@@ -86,8 +86,8 @@ const Profile = ({ loggedIn, user }) => {
 
   return (
     <div>
-      <h1>Profile Page</h1>
-      <button onClick={handleCreateEvent}>Create Event</button>
+      <h1 className='text-center font-extrabold text-3xl'>TASKFLOW CALENDAR</h1>
+      <button className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3" onClick={handleCreateEvent}>Create Event</button>
       {showEventForm && <EventForm setShowEventForm={setShowEventForm} onSubmit={handleEventFormSubmit} event={editingEvent} user={user} />}
       <Calendar
   onChange={setDate}
@@ -104,10 +104,14 @@ const Profile = ({ loggedIn, user }) => {
           <li key={index}>
             <div>
               <span>{event.eventName}</span>
-              <button onClick={() => handleEditEvent(event)}>Edit</button>
-              <button onClick={() => handleDeleteEvent(event._id)}>Delete</button>
-            </div>
             <div>{convertTo12HourTime(event.time)}</div>
+            <span>{event.description}</span>
+              <div>  
+              </div>
+              <button onClick={() => handleEditEvent(event)} className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">Edit</button>
+              <button onClick={() => handleDeleteEvent(event._id)} className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">Delete</button>
+            </div>
+
           </li>
         ))}
       </ul>

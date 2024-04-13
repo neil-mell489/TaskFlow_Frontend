@@ -102,10 +102,11 @@ const EventForm = ({ setShowEventForm, event, onSubmit, user }) => {
           >
             {event ? 'Edit' : 'Create'} Event
           </button>
-        </div>
         <div>
-          <button onClick={handleCancel}>Cancel</button>
+          <button onClick={handleCancel} className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">Cancel</button>
+        </div>          
         </div>
+
       </form>
       {/* View button */}
       {/* <button className="view-button" onClick={handleViewEvent}>View Event</button> */}
