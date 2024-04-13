@@ -2,7 +2,7 @@ const Homepage = () => {
 
     return (
         <div className="homepage-heading">
-            <h1>Calender</h1>
+            <h1>Welcome to TaskFlow!</h1>
         </div>
     )
 }

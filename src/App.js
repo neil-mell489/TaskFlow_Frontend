@@ -94,9 +94,9 @@ function App() {
 
   return (
     <div className="App">
-      <Nav isLoggedIn={isLoggedIn} handleLogout={handleLogout} handleNavigation={navigate} /> {/* Pass handleNavigation here */}
+      <Nav isLoggedIn={isLoggedIn} handleLogout={handleLogout} handleNavigation={navigate} /> 
       <Routes>
-        <Route path='/' element={<Homepage />} />
+        <Route path='/' element={<Signup handleSignUp={handleSignUp} />} />
         <Route path='/signup' element={<Signup handleSignUp={handleSignUp} />} />
         <Route path='/login' element={<Login handleLogin={handleLogin} />} />
         <Route path='/profile/:id' element={<Profile fetchUser={fetchUser} user={user} />} />
