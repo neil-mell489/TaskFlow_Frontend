@@ -3,7 +3,7 @@ import Profile from './pages/Profile';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Nav from './components/Nav';
-import Homepage from './pages/Homepage';
+import Homepage from './pages/HomePage';
 import { useState, useEffect } from 'react';
 
 function App() {
