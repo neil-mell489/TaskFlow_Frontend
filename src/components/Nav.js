@@ -21,7 +21,7 @@ const Nav = (props) => {
     return (
         <nav className="navbar bg-black font-bold text-white flex flex-row-reverse">
             <div className="p-10 hover:text-violet-600">
-                <button className="nav-button" onClick={() => props.handleNavigation("/")}>Home</button>
+                <button className="nav-button" onClick={() => props.handleNavigation(`/profile/${data.id}`)}>Home</button>
             </div>
             <div className="p-10 hover:text-violet-600">
                 {props.isLoggedIn ? loggedInLink : noAuthLinks}

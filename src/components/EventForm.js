@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {useParams} from 'react-router-dom'
-
+import { useParams } from 'react-router-dom';
 
 const EventForm = ({ setShowEventForm, event, onSubmit, user }) => {
   const [formData, setFormData] = useState({
@@ -9,7 +8,7 @@ const EventForm = ({ setShowEventForm, event, onSubmit, user }) => {
     date: event ? event.date : '',
     time: event ? event.time : '',
   });
-  const {id} = useParams()
+  const { id } = useParams();
 
   useEffect(() => {
     // Update form data when the event prop changes
@@ -30,15 +29,22 @@ const EventForm = ({ setShowEventForm, event, onSubmit, user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(event ? `http://localhost:4000/api/events/${event._id}` : 'http://localhost:4000/api/events', {
-        method: event ? 'PUT' : 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({...formData, createdBy: id}),
-      });
+      const response = await fetch(
+        event
+          ? `http://localhost:4000/api/events/${event._id}`
+          : 'http://localhost:4000/api/events',
+        {
+          method: event ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ ...formData, createdBy: id }),
+        }
+      );
       if (!response.ok) {
-        throw new Error(`Failed to ${event ? 'edit' : 'create'} event: ${response.statusText}`);
+        throw new Error(
+          `Failed to ${event ? 'edit' : 'create'} event: ${response.statusText}`
+        );
       }
       // If successful, close the form
       setShowEventForm(false);
@@ -50,36 +56,56 @@ const EventForm = ({ setShowEventForm, event, onSubmit, user }) => {
     }
   };
 
-  // Function to open the pop-up window
-  const handleViewEvent = () => {
-    // Implement the logic to display the event details in a pop-up window
-    // You can use a modal or a custom pop-up component for this purpose
+  // Function to handle cancel button click
+  const handleCancel = () => {
+    window.location.reload();
   };
 
   return (
-    <div className='bg-violet-300 flex flex-col items-center'>
-      <h2 className='text-xl font-semibold pb-5 pt-5'>{event ? 'Edit Event' : 'Create Event'}</h2>
+    <div className="bg-violet-300 flex flex-col items-center">
+      <h2 className="text-xl font-semibold pb-5 pt-5">
+        {event ? 'Edit Event' : 'Create Event'}
+      </h2>
       <form onSubmit={handleSubmit}>
-        <div className='pb-4'>
+        <div className="pb-4">
           <label>Title: </label>
-          <input type="text" name="eventName" value={formData.eventName} onChange={handleChange} placeholder='Enter Title'/>
+          <input
+            type="text"
+            name="eventName"
+            value={formData.eventName}
+            onChange={handleChange}
+            placeholder="Enter Title"
+          />
         </div>
-        <div className='pb-4'>
+        <div className="pb-4">
           <label>Description: </label>
-          <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder='Enter Description' />
+          <input
+            type="text"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Enter Description"
+          />
         </div>
-        <div className='pb-4'>
+        <div className="pb-4">
           <label>Date </label>
           <input type="date" name="date" value={formData.date} onChange={handleChange} />
         </div>
-        <div className='pb-4'>
+        <div className="pb-4">
           <label>Time: </label>
           <input type="time" name="time" value={formData.time} onChange={handleChange} />
         </div>
         <div className="flex justify-center">
-        <button type="submit" className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">{event ? 'Edit' : 'Create'} Event</button>          
+          <button
+            type="submit"
+            className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3"
+          >
+            {event ? 'Edit' : 'Create'} Event
+          </button>
         </div>
-
+        <div>
+          <button onClick={handleCancel}>Cancel</button>
+        </div>
       </form>
       {/* View button */}
       {/* <button className="view-button" onClick={handleViewEvent}>View Event</button> */}
