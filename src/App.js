@@ -5,19 +5,18 @@ import Login from './components/Login';
 import Nav from './components/Nav';
 import Homepage from './pages/HomePage';
 import { useState, useEffect } from 'react';
-import '../src/tailwind.css'
+import '../src/tailwind.css';
+
 
 function App() {
+  const URL = process.env.REACT_APP_URL;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
-  const [fetchingUser, setFetchingUser] = useState(false); // Add state for fetching user
-  const navigate = useNavigate(); // Get the navigate function directly
-  const URL = process.env
-
-
+  const [fetchingUser, setFetchingUser] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignUp = async(user) => {
-    const response = await fetch(URL + "api/auth/signup", {
+    const response = await fetch(`${URL}/api/auth/signup` , {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +29,8 @@ function App() {
   };
 
   const handleLogin = async(user) => {
-    const response = await fetch(URL + "api/auth/login", {
+    console.log(URL)
+    const response = await fetch(`${URL}/api/auth/login` , {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ function App() {
     // get logged in user's token
     const token = localStorage.getItem("authToken");
     if(token){
-      const response = await fetch(URL + `/api/user/${id}`, {
+      const response = await fetch(`${URL}/api/user/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -92,15 +92,14 @@ function App() {
     }
   }, []);
 
-  
-
   return (
     <div className="App">
       <Nav isLoggedIn={isLoggedIn} handleLogout={handleLogout} handleNavigation={navigate} /> 
       <Routes>
+        {/* Pass URL to child components */}
         <Route path='/' element={<Signup handleSignUp={handleSignUp} />} />
         <Route path='/signup' element={<Signup handleSignUp={handleSignUp} />} />
-        <Route path='/login' element={<Login handleLogin={handleLogin} />} />
+        <Route path='/login' element={<Login handleLogin={handleLogin}  />} />
         <Route path='/profile/:id' element={<Profile fetchUser={fetchUser} user={user} />} />
       </Routes>
     </div>

@@ -2,34 +2,37 @@ import React, { useState, useEffect } from 'react';
 import EventForm from '../components/EventForm';
 import Calendar from 'react-calendar';
 import '../assets/css/styles.css';
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom';
+
+const URL = process.env.REACT_APP_URL;
 
 const Profile = ({ loggedIn, user }) => {
   const [showEventForm, setShowEventForm] = useState(false);
   const [events, setEvents] = useState([]);
   const [date, setDate] = useState(new Date());
   const [editingEvent, setEditingEvent] = useState(null);
-  const {id} = useParams()
-  const URL = process.env
+  const { id } = useParams();
+
+
   useEffect(() => {
     fetchEvents(); // Fetch events when component mounts
   }, []);
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch(URL + `api/events/${id}`, {
+      const response = await fetch(`${URL}/api/events/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
-        });        
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       const jsonResponse = await response.json();
       const eventsData = jsonResponse.data;
-  
+
       if (Array.isArray(eventsData)) {
         setEvents(eventsData);
       } else {
@@ -54,17 +57,17 @@ const Profile = ({ loggedIn, user }) => {
 
   const handleDeleteEvent = async (id) => {
     try {
-      const response = await fetch(URL + `api/events/${id}`, {
+      const response = await fetch(`${URL}/api/events/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to delete event');
       }
-  
+
       // Refetch events after deleting an event
       fetchEvents();
     } catch (error) {
@@ -91,35 +94,33 @@ const Profile = ({ loggedIn, user }) => {
       <button className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3" onClick={handleCreateEvent}>Create Event</button>
       {showEventForm && <EventForm setShowEventForm={setShowEventForm} onSubmit={handleEventFormSubmit} event={editingEvent} user={user} />}
       <Calendar
-  onChange={setDate}
-  value={date}
-  tileContent={({ date, view }) => {
-    const offset = date.getTimezoneOffset() * 60000; // Get offset in milliseconds
-    const dayEvents = events?.filter(event =>
-      new Date(event.date).getTime() + offset >= date.getTime() && // Adjust for timezone offset
-      new Date(event.date).getTime() + offset < date.getTime() + 86400000 // 86400000 milliseconds = 1 day
-    );
-    return (
-      <ul>
-        {dayEvents.map((event, index) => (
-          <li key={index}>
-            <div>
-              <span>{event.eventName}</span>
-            <div>{convertTo12HourTime(event.time)}</div>
-            <span>{event.description}</span>
-              <div>  
-              </div>
-              <button onClick={() => handleEditEvent(event)} className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">Edit</button>
-              <button onClick={() => handleDeleteEvent(event._id)} className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">Delete</button>
-            </div>
-
-          </li>
-        ))}
-      </ul>
-    );
-  }}
-/>
-
+        onChange={setDate}
+        value={date}
+        tileContent={({ date, view }) => {
+          const offset = date.getTimezoneOffset() * 60000; // Get offset in milliseconds
+          const dayEvents = events?.filter(event =>
+            new Date(event.date).getTime() + offset >= date.getTime() && // Adjust for timezone offset
+            new Date(event.date).getTime() + offset < date.getTime() + 86400000 // 86400000 milliseconds = 1 day
+          );
+          return (
+            <ul>
+              {dayEvents.map((event, index) => (
+                <li key={index}>
+                  <div>
+                    <span>{event.eventName}</span>
+                    <div>{convertTo12HourTime(event.time)}</div>
+                    <span>{event.description}</span>
+                    <div>
+                      <button onClick={() => handleEditEvent(event)} className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">Edit</button>
+                      <button onClick={() => handleDeleteEvent(event._id)} className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">Delete</button>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          );
+        }}
+      />
     </div>
   );
 };
