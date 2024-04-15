@@ -107,10 +107,10 @@ const Profile = ({ loggedIn, user }) => {
               {dayEvents.map((event, index) => (
                 <li key={index}>
                   <div>
-                    <span>{event.eventName}</span>
-                    <div>{convertTo12HourTime(event.time)}</div>
-                    <span>{event.description}</span>
-                    <div>
+                    <span className='text-wrap'>{event.eventName}</span>
+                    <div className='text-wrap'>{convertTo12HourTime(event.time)}</div>
+                    <span className='text-pretty'>{event.description}</span>                      
+                    <div className="flex flex-wrap justify-center">
                       <button onClick={() => handleEditEvent(event)} className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">Edit</button>
                       <button onClick={() => handleDeleteEvent(event._id)} className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">Delete</button>
                     </div>
