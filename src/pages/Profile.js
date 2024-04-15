@@ -10,7 +10,7 @@ const Profile = ({ loggedIn, user }) => {
   const [date, setDate] = useState(new Date());
   const [editingEvent, setEditingEvent] = useState(null);
   const {id} = useParams()
-  const URL = process.env.REACT_APP_URL
+  const URL = process.env
   useEffect(() => {
     fetchEvents(); // Fetch events when component mounts
   }, []);

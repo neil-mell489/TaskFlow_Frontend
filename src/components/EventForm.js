@@ -9,7 +9,7 @@ const EventForm = ({ setShowEventForm, event, onSubmit, user }) => {
     time: event ? event.time : '',
   });
   const { id } = useParams();
-  const URL = process.env.REACT_APP_URL 
+  const URL = process.env 
 
   useEffect(() => {
     // Update form data when the event prop changes

@@ -12,7 +12,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [fetchingUser, setFetchingUser] = useState(false); // Add state for fetching user
   const navigate = useNavigate(); // Get the navigate function directly
-  const URL = process.env.REACT_APP_URL
+  const URL = process.env
 
 
 
