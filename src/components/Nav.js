@@ -19,7 +19,12 @@ const Nav = (props) => {
     );
 
     return (
-        <nav className="navbar bg-black font-bold text-white flex flex-row-reverse">
+        <nav className="navbar bg-black font-bold text-white flex justify-between items-center">
+            {/* TaskFlow logo or title */}
+            <div className="logo ml-5">
+                TaskFlow
+            </div>
+            {/* Conditional links */}
             <div>
                 {props.isLoggedIn ? loggedInLink : noAuthLinks}
             </div>
