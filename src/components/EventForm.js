@@ -9,7 +9,7 @@ const EventForm = ({ setShowEventForm, event, onSubmit, user }) => {
     time: event ? event.time : '',
   });
   const { id } = useParams();
-  const URL = process.env.REACT_APP_URL;
+  const URL = process.env 
 
   useEffect(() => {
     // Update form data when the event prop changes
@@ -32,8 +32,8 @@ const EventForm = ({ setShowEventForm, event, onSubmit, user }) => {
     try {
       const response = await fetch(
         event
-          ? `${URL}/api/events/${event._id}`
-          : `${URL}/api/events`,
+          ? "http://localhost:4000/api/events/${event._id}"
+          : "http://localhost:4000/api/events",
         {
           method: event ? 'PUT' : 'POST',
           headers: {
