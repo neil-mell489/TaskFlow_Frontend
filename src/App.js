@@ -48,6 +48,7 @@ function App() {
     navigate(`/profile/${data.id}`);
   };
 
+
   const handleLogout = () => {
     console.log("in handle logout");
     localStorage.removeItem("authToken");
